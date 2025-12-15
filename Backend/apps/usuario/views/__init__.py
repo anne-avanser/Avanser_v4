@@ -1,0 +1,1 @@
+from .usuario import UsuarioListView, UsuarioRegistroView, UsuarioDetailView
