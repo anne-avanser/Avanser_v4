@@ -31,6 +31,8 @@ INSTALLED_APPS = [
 
     # Tus apps
     "apps.usuario",
+    "apps.ficha",
+    "apps.programa_formacion",
 ]
 
 # Modelo de usuario personalizado

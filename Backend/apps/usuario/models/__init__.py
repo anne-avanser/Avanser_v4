@@ -1,2 +1,3 @@
 from .usuario import Usuario
-__all__ = ["Usuario"]
+from .instructor import Instructor
+__all__ = ["Usuario", "Instructor"]
