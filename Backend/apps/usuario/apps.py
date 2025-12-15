@@ -4,3 +4,9 @@ class UsuarioConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "apps.usuario"
     label = "usuario"
+
+class InstructorConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.usuario"
+    label = "instructor"
+        

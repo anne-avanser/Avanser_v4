@@ -1,1 +1,2 @@
 from .usuario import UsuarioSerializer, UsuarioRegistroSerializer
+from .instructor import InstructorSerializer
