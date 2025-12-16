@@ -6,7 +6,7 @@ __pycache__/
 *.pyc
 
 # Entornos virtuales
-venv/
+.venv/
 .env/
 
 # Django
@@ -14,7 +14,7 @@ venv/
 staticfiles/
 media/
 
-# VSCode / IDEs
+# VSCode / IDEs 
 .vscode/
 .idea/
 
