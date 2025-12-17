@@ -7,8 +7,12 @@ __pycache__/
 
 # Entornos virtuales
 .venv/
+<<<<<<< HEAD:Backend/.gitignore
 venv/
 .env/
+=======
+.env
+>>>>>>> andres-sarria:.gitignore
 
 # Django
 *.log
