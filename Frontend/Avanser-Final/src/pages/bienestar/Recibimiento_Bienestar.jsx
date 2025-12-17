@@ -1,35 +1,34 @@
 import React from 'react';
-import { FileText, User, BarChart3, Bell, ArrowRight, BookOpen } from 'lucide-react';
+import { FileText, User, LayoutDashboard, Bell, ArrowRight, BookOpen, Megaphone } from 'lucide-react';
 // IMPORTANTE: Asegúrate de instalar y usar 'react-router-dom'
 import { Link, useNavigate } from 'react-router-dom'; 
-import Sidebar_Bienestar from '../../components/Sidebar_instructor';
-import Sidebar_instructor from '../../components/Sidebar_instructor';
+import Sidebar_Bienestar from '../../components/Sidebar_Bienestar';
 
-export default function Welcome_Instructor() {
+export default function Welcome_Bienestar() {
     // 1. Hook para la navegación programática
     const navigate = useNavigate(); 
     
     // Función para el botón de la campana
     const handleNotificationsClick = () => {
         // Usamos navigate() para cambiar de ruta de forma eficiente
-        navigate('/instructor/notificaciones'); 
+        navigate('/Notificaciones_Bienestar'); 
     };
 
     // 2. Definición de Accesos Rápidos con rutas absolutas
-    // Las rutas de ejemplo asumen un prefijo '/instructor'
+  
     const quickAccess = [
-        { icon: BarChart3, label: 'Rendimiento', path: "/Rendimiento" },
-        { icon: FileText, label: 'Reportes', path: "/Reporte" },
-        { icon: BookOpen, label: 'Mi Ficha', path: "/Mi_Ficha" },
-        { icon: Bell, label: 'Notificaciones', path: "/Notificaciones" },
-        { icon: User, label: 'Perfil', path: "/Perfil" },
+        { icon: LayoutDashboard, label: 'Dashboard', path: "/Dashboard_Bienestar" },
+        { icon: FileText, label: 'Registro', path: "/Registro_Bienestar" },
+        { icon: BookOpen, label: 'Historial', path: "/Historial_Bienestar" },
+        { icon: Megaphone, label: 'Noticias', path: "/Noticias_Bienestar" },
+        { icon: Bell, label: 'Notificaciones', path: "/Notificaciones_Bienestar" },
     ];
 
     return (
         <div className="min-h-screen flex bg-white text-gray-900">
 
             {/* SIDEBAR (No necesita cambios si ya usa <Link>) */}
-            <Sidebar_instructor />
+            <Sidebar_Bienestar />
 
             {/* CONTENEDOR PRINCIPAL */}
             <div className="flex-1 flex flex-col ml-20 md:ml-6">
@@ -55,12 +54,11 @@ export default function Welcome_Instructor() {
 
                         {/* TÍTULO (Se mantiene igual) */}
                         <h1 className="text-7xl md:text-8xl font-light mb-6 text-gray-900 tracking-wide">
-                            Bienvenido Instructor
+                            Bienvenidos Bienestar al Aprendiz
                         </h1>
 
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light mb-16">
-                            Te damos la bienvenida a tu panel de control. Aquí puedes gestionar tus cursos,
-                            revisar el progreso de tus estudiantes y acceder a recursos exclusivos.
+                            Te damos la bienvenida a tu panel de control. Aquí puedes gestionar tus acciones sobre los casos de riesgo
                         </p>
 
                         {/* ACCESOS RÁPIDOS */}
