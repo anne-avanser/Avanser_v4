@@ -4,6 +4,8 @@ from .viewsPrograma import *
 from .viewsFicha import * 
 from .viewsUsuario import *
 from appAvanser import viewsPrograma, viewsFicha, viewsUsuario
+from . import views
+
 
 
 urlpatterns = [
@@ -12,5 +14,7 @@ urlpatterns = [
     path('ficha/', FichaList.as_view()),
     path('ficha/<int:pk>/', FichaDetail.as_view()),
     path('usuario/', UsuarioList.as_view()),
-    path('usuario/<int:pk>', UsuarioDetail.as_view() )
+    path('usuario/<int:pk>', UsuarioDetail.as_view() ),
+    path("ping/", views.ping),
+
 ]
