@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Entornos virtuales
+.venv/
+venv/
+.env/
+
+# Django
+*.log
+staticfiles/
+media/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+
+.qodo
