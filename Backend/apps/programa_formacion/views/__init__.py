@@ -1,1 +1,0 @@
-from .programa_formacion import ProgramaFormacionViewSet
