@@ -1,28 +1,68 @@
-from django.shortcuts import render
-from .models import CasoBienestar
-from .serializers import CasoBienestarSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, FormParser
-from .models import NoticiaBienestar, ArchivoNoticia
-from .serializers import NoticiaBienestarSerializer
-from .serializers import DashboardBienestarSerializer
-from .models import CasoDashboardBienestar
-from .models import NotificacionBienestar
-from .serializers import NotificacionBienestarSerializer
-from .serializers import PerfilUsuarioSerializer
-from .models import PerfilUsuario
 from rest_framework.permissions import IsAuthenticated
-from .models import CasoBienestar
-from .serializers import CasoBienestarSerializer   
+from rest_framework.parsers import MultiPartParser, FormParser
 
+from .models import (
+    CasoBienestar,
+    NoticiaBienestar,
+    ArchivoNoticia,
+    CasoDashboardBienestar,
+    NotificacionBienestar,
+    PerfilUsuario
+)
+
+from .serializers import (
+    CasoBienestarSerializer,
+    NoticiaBienestarSerializer,
+    DashboardBienestarSerializer,
+    NotificacionBienestarSerializer,
+    PerfilUsuarioSerializer
+)
+
+
+# =========================
+# HISTORIAL DE CASOS
+# =========================
 class HistorialBienestarView(APIView):
 
     def get(self, request):
-        casos = CasoBienestar.objects.all()
+        casos = CasoBienestar.objects.all().order_by("-id")
         serializer = CasoBienestarSerializer(casos, many=True)
         return Response(serializer.data)
 
+
+# =========================
+# CASOS DE BIENESTAR
+# =========================
+class CasosBienestarView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        casos = CasoBienestar.objects.all().order_by("-id")
+        serializer = CasoBienestarSerializer(casos, many=True)
+        return Response(serializer.data)
+
+
+# =========================
+# ACTUALIZAR ESTADO DEL CASO
+# =========================
+class ActualizarEstadoCasoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        caso = CasoBienestar.objects.get(id=pk)
+        caso.estado = request.data.get("estado")
+        caso.save()
+
+        return Response({
+            "mensaje": "Estado actualizado correctamente"
+        })
+
+
+# =========================
+# NOTICIAS DE BIENESTAR
+# =========================
 class NoticiasBienestarView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
@@ -41,37 +81,41 @@ class NoticiasBienestarView(APIView):
             informacion=data.get("informacion"),
         )
 
-        for file in request.FILES.getlist("archivos"):
+        for archivo in request.FILES.getlist("archivos"):
             ArchivoNoticia.objects.create(
                 noticia=noticia,
-                archivo=file
+                archivo=archivo
             )
 
         serializer = NoticiaBienestarSerializer(noticia)
         return Response(serializer.data)
-    
+
+
+# =========================
+# DASHBOARD BIENESTAR
+# =========================
 class DashboardBienestarView(APIView):
 
     def get(self, request):
         casos = CasoDashboardBienestar.objects.all()
         serializer = DashboardBienestarSerializer(casos, many=True)
         return Response(serializer.data)
-    
+
+
+# =========================
+# NOTIFICACIONES
+# =========================
 class NotificacionesBienestarView(APIView):
 
     def get(self, request):
-        casos = NotificacionBienestar.objects.all().order_by("-fecha_ingreso")
-        serializer = NotificacionBienestarSerializer(casos, many=True)
+        notificaciones = NotificacionBienestar.objects.all().order_by("-fecha_ingreso")
+        serializer = NotificacionBienestarSerializer(notificaciones, many=True)
         return Response(serializer.data)
-    
-class PerfilUsuarioView(APIView):
-    permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        perfil = PerfilUsuario.objects.get(user=request.user)
-        serializer = PerfilUsuarioSerializer(perfil)
-        return Response(serializer.data)
-    
+
+# =========================
+# CONTADOR NOTIFICACIONES
+# =========================
 class ContadorNotificacionesView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -83,20 +127,15 @@ class ContadorNotificacionesView(APIView):
         return Response({
             "nuevas": total
         })
-class CasosBienestarView(APIView):
+
+
+# =========================
+# PERFIL USUARIO
+# =========================
+class PerfilUsuarioView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        casos = CasoBienestar.objects.all().order_by("-id")
-        serializer = CasoBienestarSerializer(casos, many=True)
+        perfil = PerfilUsuario.objects.get(user=request.user)
+        serializer = PerfilUsuarioSerializer(perfil)
         return Response(serializer.data)
-
-
-class ActualizarEstadoCasoView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request, pk):
-        caso = CasoBienestar.objects.get(id=pk)
-        caso.estado = request.data.get("estado")
-        caso.save()
-        return Response({"mensaje": "Estado actualizado"})
