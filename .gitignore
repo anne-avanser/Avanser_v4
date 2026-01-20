@@ -7,7 +7,11 @@ __pycache__/
 
 # Entornos virtuales
 .venv/
+<<<<<<< HEAD
 .env/
+=======
+.env
+>>>>>>> fc0fef9fec9a4db3e60b48390ccc646f8a8aaa02
 
 # Django
 *.log
